@@ -3,7 +3,7 @@ const request = require('supertest')
 const cats = require('../../api/data/cats')
 const app = require('../../api/app')
 
-const requestBody = { name: 'Tootles', breed: 'Tabby', age: 15 }
+const requestBody = { name: 'mittens', breed: 'Tabby', age: 15 }
 const { path } = require('ramda')
 
 test('POST /cats', t => {

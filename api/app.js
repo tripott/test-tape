@@ -1,16 +1,21 @@
 const app = require('express')()
 const port = process.env.PORT || 3000
 var cats = require('./data/cats')
-const { find, last, compose, assoc } = require('ramda')
+const { find, last, compose, assoc, isNil } = require('ramda')
 const bodyParser = require('body-parser')
+const HTTPError = require('node-http-error')
 
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
 app.post('/cats', (req, res, next) => {
-  cats.push(req.body)
-  res.status(201).send(compose(assoc('ok', true), last)(cats))
+  if (isNil(find(cat => cat.name === req.body.name, cats))) {
+    cats.push(req.body)
+    res.status(201).send(compose(assoc('ok', true), last)(cats))
+  } else {
+    return next(new HTTPError(409, 'Duplicate'))
+  }
 })
 
 app.get('/cats', (req, res, next) => {
@@ -22,8 +27,9 @@ app.get('/cats/:name', (req, res, next) => {
 })
 
 app.use(function(err, req, res, next) {
-  console.error(err.stack)
-  res.status(500).send('Something broke!')
+  console.log(req.method, ' ', req.path, 'error:  ', err)
+  res.status(err.status || 500)
+  res.send(err)
 })
 
 if (!module.parent) {

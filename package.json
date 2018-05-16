@@ -16,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "faucet": "^0.0.1",
+    "node-http-error": "^2.0.0",
     "ramda": "^0.25.0",
     "supertest": "^3.1.0",
     "tape": "^4.9.0"

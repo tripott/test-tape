@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn test-verbose
+  /usr/local/bin/node /usr/local/bin/yarn test
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -32,6 +32,7 @@ npm manifest:
     "license": "ISC",
     "dependencies": {
       "faucet": "^0.0.1",
+      "node-http-error": "^2.0.0",
       "ramda": "^0.25.0",
       "supertest": "^3.1.0",
       "tape": "^4.9.0"
@@ -282,6 +283,10 @@ Lockfile:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
   
+  node-http-error@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/node-http-error/-/node-http-error-2.0.0.tgz#85a0aeeed8f32f0c0b75f2715c4cd05c767aca81"
+  
   object-inspect@~1.5.0:
     version "1.5.0"
     resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.5.0.tgz#9d876c11e40f485c79215670281b767488f9bfe3"
@@ -466,7 +471,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c tape tests/**/test*.js
+  Arguments: -c tape tests/**/test*.js | faucet
   Directory: /Users/wottinger/JRS/coding-school/boot-camp-resources/test-tape
   Output:
   

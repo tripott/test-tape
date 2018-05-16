@@ -1,9 +1,17 @@
 const app = require('express')()
 const port = process.env.PORT || 3000
-const cats = require('./data/cats')
-const { find } = require('ramda')
+var cats = require('./data/cats')
+const { find, last, compose, assoc } = require('ramda')
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.json())
 
 app.get('/', (req, res) => res.send('Hello World!'))
+
+app.post('/cats', (req, res, next) => {
+  cats.push(req.body)
+  res.status(201).send(compose(assoc('ok', true), last)(cats))
+})
 
 app.get('/cats', (req, res, next) => {
   res.status(200).send(cats)
@@ -18,4 +26,8 @@ app.use(function(err, req, res, next) {
   res.status(500).send('Something broke!')
 })
 
-app.listen(port, () => console.log(`UP on ${port}!`))
+if (!module.parent) {
+  app.listen(port, () => console.log(`UP on ${port}!`))
+}
+
+module.exports = app
